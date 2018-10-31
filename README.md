@@ -1,6 +1,12 @@
-# code-story README
+#README
 
-This is the README for your extension "code-story". After writing up a brief description, we recommend including the following sections.
+## What is Code Story
+
+Code Story is an extension specially written for VSCode. By using this extension, you can easily trace your code statistic, like how many lines of code you have written in the last week, or which programming language do you write most in the last month, etc... Moreover, you can save the data on the cloud so as to sync it and never loss it!
+
+## About the privacy
+
+We don't save any bit of your code information. Basically your data will be save on local machine and we just save encrypted file of which key is unknown to us.
 
 ## Features
 
