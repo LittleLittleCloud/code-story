@@ -19,6 +19,18 @@
             {
                 "command": "extension.sayHello",
                 "title": "Hello World"
+            },
+            {
+                "command": "codeStory.signIn",
+                "title":"Sign In"
+            },
+            {
+                "command": "codeStory.signOut",
+                "title": "Sign out"
+            },
+            {
+                "command": "codeStory.sync",
+                "title": "Sync"
             }
         ]
     },
