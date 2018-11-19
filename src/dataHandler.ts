@@ -1,8 +1,12 @@
 import * as fs from 'fs';
-import {DataFormat} from './dataFormat';
+import {IDataFormat} from './dataFormat';
+import * as component from './common/component'
+import { EDBUG } from './common/util';
+
+@component.Singleton
 export class DataHandler{
     private _data_uri:string;
-    private _data_buffer:DataFormat[];
+    private _data_buffer:IDataFormat[]=[];
     public async load():Promise<void>{
         throw Error('unimplement');
     }
@@ -19,9 +23,11 @@ export class DataHandler{
         throw Error('unimplement');
     }
 
-    public append(data:DataFormat){
-        this._data_buffer.push(data);
+    public append(data:IDataFormat[]){
+        EDBUG('dataHandler save '+data.length+' data')
+        this._data_buffer.push.apply(data);
     }
+
     public flush(){
 
     }

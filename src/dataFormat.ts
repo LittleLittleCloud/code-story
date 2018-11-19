@@ -1,17 +1,18 @@
-export interface DataFormat{
-    method:METHOD;
-    fileName?:string;
-    fileType:TYPE;
-    count:number;
+export interface IDataFormat {
+    fileName?: string;
+    fileType: string;
+    count: number;
+    time: number;
+}
+
+
+export enum METHOD {
+    ADD = 'ADD',
+    DEL = 'DEL'
 };
 
-enum METHOD{
-    ADD='ADD',
-    DEL='DEL'
-};
-
-enum TYPE{
-    PY='py',
-    TS='ts',
-    CPP='cpp',
+export enum TYPE {
+    PY = 'py',
+    TS = 'ts',
+    CPP = 'cpp',
 }
