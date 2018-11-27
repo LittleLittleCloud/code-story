@@ -2,7 +2,7 @@ import * as component from './common/component';
 import { RegisterProvider } from './interface/registerProvider';
 import { registerCommand, EDBUG, ppIDataFormat } from './common/util';
 import { DataHandler } from './dataHandler';
-
+import * as sqlite from 'sqlite3';
 @component.Export(RegisterProvider)
 @component.Singleton
 export class RecordHandler{
@@ -15,9 +15,13 @@ export class RecordHandler{
     }
 
     public async showReport(){
-        let buf = this._dataHandler.load();
-        for (const entry of buf){
-            console.log(ppIDataFormat(entry));
-        }
+        let db:sqlite.Database = this._dataHandler.db;
+        db.run("select sum(count) from record where filetype = typescript",(sum,err)=>{
+            if (err){
+                console.error(err);
+            }else{
+                EDBUG(`you write ${sum} lines of typecript`);
+            }
+        });
     }
 }

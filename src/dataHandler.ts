@@ -1,46 +1,43 @@
 import * as fs from 'fs';
 import { IDataFormat } from './dataFormat';
-import * as component from './common/component'
+import * as component from './common/component';
 import { EDBUG } from './common/util';
 import { RegisterProvider } from './interface/registerProvider';
 import * as path from 'path';
 import * as vscode from 'vscode';
+import * as sqlite from 'sqlite3';
+
 @component.Export(RegisterProvider)
 @component.Singleton
 export class DataHandler {
     private _data_uri: string;
     private _id = '.record';
     private _data_buffer: IDataFormat[] = [];
-    private _fsStream: fs.WriteStream;
     private _flushEveryEntry = 1;
+    private _db: sqlite.Database;
     public async register() {
         let recordPath = path.join(__dirname, '../', this._id);
         this._data_uri = recordPath;
-        this._fsStream = fs.createWriteStream(recordPath, { flags: 'a' });
+        this.connect_or_create(this._data_uri);
+    }
+
+    public async connect_or_create(path: string) {
+        this._db = new sqlite.Database(path, sqlite.OPEN_CREATE, (err) => {
+            if (err) {
+                console.error(err.message);
+            }
+        });
+        this._db.run(
+            "CREATE TABLE IF NOT EXISTS record (fileType TEXT, count INT, time INT)"
+        );
     }
 
     get data_uri() {
         return this._data_uri;
     }
-    public load(): IDataFormat[] {
-        let buffer: IDataFormat[] = [];
-        let data = fs.readFileSync(this._data_uri, { encoding: 'utf-8' });
-        const raw = data.split(/\n/);
-        let re = /fileType: ([a-zA-Z]+), count: ([-0-9]+), time: ([0-9]+)/;
-        raw.forEach((val, index) => {
-            const m = val.match(re);
-            if (m.length > 3) {
-                buffer.push(
-                    <IDataFormat>{
-                        fileType: m[1],
-                        count: Number(m[2]),
-                        time: Number(m[3])
-                    }
-                )
-            }
 
-        })
-        return buffer
+    get db(){
+        return this._db;
     }
     public encode(): string {
         throw Error('unimplement');
@@ -58,7 +55,7 @@ export class DataHandler {
     public async append(data: IDataFormat[]) {
         EDBUG('dataHandler save ' + data.length + ' data');
         data.forEach((value, index) => {
-            this._data_buffer.push(value)
+            this._data_buffer.push(value);
         });
         await this.flush();
     }
@@ -70,15 +67,12 @@ export class DataHandler {
                 { location: vscode.ProgressLocation.Window },
                 async (progress) => {
                     progress.report({ message: `code-story: sync...` });
+                    const stmt = this._db.prepare("INSERT INTO record VALUES (?,?,?)");
                     this._data_buffer.forEach((item, index) => {
-                        this._fsStream.write(`fileType: ${item.fileType}, count: ${item.count}, time: ${item.time}\n`, (err) => {
-                            if (err) {
-                                err.message = index;
-                                throw err;
-                            }
-                        });
+                        stmt.run(item.fileType,item.count,item.time);
                     }
                     );
+                    stmt.finalize();
                 }
             ).then(
                 () => {
@@ -87,7 +81,7 @@ export class DataHandler {
                 (error) => {
                     console.log(error);
                     this._data_buffer = this._data_buffer.slice(error.message, -1);
-                })
+                });
         }
     }
 }

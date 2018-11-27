@@ -1,7 +1,6 @@
 import { Container, injectable } from "inversify";
 import * as vscode from 'vscode';
 import {ExtensionContext} from './extensionContext';
-import { EDBUG } from "./util";
 const container = new Container({autoBindInjectable: true, defaultScope: 'Singleton'});
 
 export function Singleton(target: Function){
@@ -13,7 +12,6 @@ export function Singleton(target: Function){
 export function Export(source: Function | symbol): (target) => void {
     return (target): void => {
         if (!container.isBound(target)) {
-            EDBUG(`singleton ${target}`)
             Singleton(target);
         }
         container.bind(source).toConstantValue(container.get(target));
