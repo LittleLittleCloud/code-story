@@ -1,5 +1,6 @@
 import { Container, injectable } from "inversify";
 import * as vscode from 'vscode';
+import "reflect-metadata";
 import {ExtensionContext} from './extensionContext';
 const container = new Container({autoBindInjectable: true, defaultScope: 'Singleton'});
 
