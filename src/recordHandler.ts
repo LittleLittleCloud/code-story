@@ -16,11 +16,11 @@ export class RecordHandler{
 
     public async showReport(){
         let db:sqlite.Database = this._dataHandler.db;
-        db.run("select sum(count) from record where filetype = typescript",(sum,err)=>{
+        db.get("select sum(count) as res from record where filetype = 'typescript'",(err,sum)=>{
             if (err){
                 console.error(err);
             }else{
-                EDBUG(`you write ${sum} lines of typecript`);
+                EDBUG(`you write ${sum.res} lines of typecript`);
             }
         });
     }

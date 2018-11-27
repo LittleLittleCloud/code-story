@@ -22,7 +22,7 @@ export class DataHandler {
     }
 
     public async connect_or_create(path: string) {
-        this._db = new sqlite.Database(path, sqlite.OPEN_CREATE, (err) => {
+        this._db = new sqlite.Database(path, (err) => {
             if (err) {
                 console.error(err.message);
             }
