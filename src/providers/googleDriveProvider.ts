@@ -33,9 +33,10 @@ export class GoogleDriveProvider {
         if (record !== undefined) {
             drive.files.update(
                 {
-                    fileId:record.id,
+                    fileId: record.id,
                     media: {
-                        body: fs.createReadStream(filePath)                    },
+                        body: fs.createReadStream(filePath)
+                    },
                 },
                 (err, res) => {
                     if (err) {
@@ -45,11 +46,11 @@ export class GoogleDriveProvider {
                     EDBUG('done');
                 }
             );
-        }else{
+        } else {
             drive.files.create(
                 {
                     requestBody: {
-                        name:'record.db'
+                        name: 'record.db'
                     },
                     media: {
                         body: fs.createReadStream(filePath)
@@ -66,15 +67,15 @@ export class GoogleDriveProvider {
         }
     }
 
-    public async download(srcPath: string, dstPath: string) {
-        const oAuth2Client=await this.getOAuth2Client();
+    public async download(dstPath: string) {
+        const oAuth2Client = await this.getOAuth2Client();
         const drive = new google.drive_v3.Drive({
             auth: oAuth2Client
         });
         const dest = fs.createWriteStream(dstPath);
         const files = await drive.files.list();
         const record = files.data.files.find(x => x.name === 'record.db');
-        if(record=== undefined){
+        if (record === undefined) {
             vscode.window.showErrorMessage("fail to find record.db, please upload first");
             return;
         }
@@ -87,8 +88,18 @@ export class GoogleDriveProvider {
                     EDBUG(err.message);
                     return;
                 }
-                res.data.pipe(dest);
+                res.data
+                .on('error',(error)=>{
+                    vscode.window.showErrorMessage(error.message);
+                })
+                .pipe(dest);
+
             });
+        await new Promise((res, rej) => {
+            dest.on('finish', () => res());
+            dest.on('error', () => rej('error'));
+        });
+
     }
 
     private async getOAuth2Client() {

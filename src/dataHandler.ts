@@ -7,7 +7,6 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import * as sqlite from 'sqlite3';
 import { GoogleDriveProvider } from './providers/googleDriveProvider';
-import { StatusProvider } from './providers/statusProvider';
 
 @component.Export(RegisterProvider)
 @component.Singleton
@@ -35,8 +34,11 @@ export class DataHandler {
             this.upload();
         });
         registerCommand('codeStory.download',async ()=>{
-            this.download();
+            this.download_merge();
         });
+        registerCommand('codeStory.sync',async()=>{
+            this.sync();
+        })
     }
 
     public async unregister() {
@@ -75,16 +77,46 @@ export class DataHandler {
             throw Error('unimplement');
         }
     }
-    public async download(): Promise<void> {
-        const platform = <string>vscode.workspace.getConfiguration('codeStory').get('codeStory.syncPlatform');
-        const status = component.get(StatusProvider).status;
+    public async download_merge(): Promise<void> {
+        const platform = <string>vscode.workspace.getConfiguration('codeStory').get('syncPlatform');
         if (platform === 'GoogleDrive') {
-            await component.get(GoogleDriveProvider).download(this._id,this._remote_data_uri);
+            await withProgress('downloading ... ',async ()=> await component.get(GoogleDriveProvider).download(this._remote_data_uri));
+            await withProgress('merging ...',async ()=>{
+                const newDB = new sqlite.Database(this._remote_data_uri,sqlite.OPEN_READONLY,(err)=>{
+                    if(err){
+                        vscode.window.showErrorMessage(err.message);
+                        return;
+                    }
+                });
+                const newRecords = await new Promise<IDataFormat[]>((resolve,reject)=>{
+                    var res = [];
+                    newDB.all("select * from record",(err,rows)=>{
+                        if(err){
+                            vscode.window.showErrorMessage(err.message);
+                            reject(err);
+                        }else{
+                            rows.forEach((row)=>{
+                                res.push(<IDataFormat>{
+                                    fileType:row.fileType,
+                                    count:row.count,
+                                    time:row.time
+                                });
+                            });
+                            resolve(res);
+                        }
+                    });
+                });
+                await this.append(newRecords);
+            });
         } else {
             throw Error('unimplement');
         }
     }
 
+    public async sync(){
+        await this.download_merge();
+        await this.upload();
+    }
     public async append(data: IDataFormat[]) {
         EDBUG('dataHandler save ' + data.length + ' data');
         data.forEach((value, index) => {
@@ -100,7 +132,7 @@ export class DataHandler {
                 { location: vscode.ProgressLocation.Window },
                 async (progress) => {
                     progress.report({ message: `code-story: sync...` });
-                    const stmt = this._db.prepare("INSERT INTO record VALUES (?,?,?)");
+                    const stmt = this._db.prepare("INSERT OR REPLACE INTO record VALUES (?,?,?)");
                     this._data_buffer.forEach((item, index) => {
                         stmt.run(item.fileType, item.count, item.time);
                     }
