@@ -1,71 +1,39 @@
-#README
+# README
 
 ## What is Code Story
 
 Code Story is an extension specially written for VSCode. By using this extension, you can easily trace your code statistic, like how many lines of code you have written in the last week, or which programming language do you write most in the last month, etc... Moreover, you can save the data on the cloud so as to sync it and never loss it!
 
+(kindly remind that due to this extension hasn't been finished yet, some of its functions hasen't been implement yet. Please wait and see)
+
 ## About the privacy
 
-We don't save any bit of your code information. Basically your data will be save on local machine and we just save encrypted file of which key is unknown to us.
+We don't save any bit of your code information. Basically your data will be save on local machine
 
-## Features
+## Useful commands
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Open the Command Palette (Command+Shift+P on macOS and Ctrl+Shift+P on Windows/Linux) and type in one of the following commands:
 
-For example if there is an image subfolder under your extension project workspace:
+- **code-story: Show report**:  Show the line # of codes you have written.
 
-\!\[feature X\]\(images/feature-x.png\)
+You can turn on the recording process by clicking the **code-story :  stop recording** at status bar or turn on the process by clicking it again
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.9.0
 
-### 1.0.0
+Add basic support for recording total # lines of code
 
-Initial release of ...
 
-### 1.0.1
+### Next Step
 
-Fixed issue #.
+- add support for syncronizing data between several boxes
+- more fancy style of report in **Show report** 
+- add support for customizing your report
 
-### 1.1.0
+## About author
 
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- name: BigMiao
+- Github: LittleLittleCloud
+- Email: bigmiao.zhang@gmail.com

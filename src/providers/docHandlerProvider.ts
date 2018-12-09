@@ -9,17 +9,29 @@ import { DataHandler } from '../dataHandler';
 @component.Singleton
 export class WindowHandlerProvider {
     private _visibleTextEditors: DocHandler[] = [];
+    private _onDidChangeVisibleTextEditorsEvent: vscode.Disposable;
+    private _onDidSaveTextDocumentEvent: vscode.Disposable;
+
     public register() {
         const visibleTextEditors = vscode.window.visibleTextEditors;
         for (const textEditor of visibleTextEditors) {
             this._visibleTextEditors.push(new DocHandler(textEditor.document));
         }
-        vscode.window.onDidChangeVisibleTextEditors((e) => {
+        this._onDidChangeVisibleTextEditorsEvent=vscode.window.onDidChangeVisibleTextEditors((e) => {
             this.updateVisibleTextEditor(e);
         });
-        vscode.workspace.onDidSaveTextDocument((d) => {
+        this._onDidSaveTextDocumentEvent=vscode.workspace.onDidSaveTextDocument((d) => {
             this.saveDocument(d);
         });
+    }
+
+    public unregister(){
+        this._visibleTextEditors.forEach((val)=>{
+            val.save();
+        });
+        this._visibleTextEditors=[];
+        this._onDidChangeVisibleTextEditorsEvent.dispose();
+        this._onDidSaveTextDocumentEvent.dispose();
     }
 
     private updateVisibleTextEditor(e: vscode.TextEditor[]) {

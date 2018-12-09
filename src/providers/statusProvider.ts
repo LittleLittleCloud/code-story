@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as component from '../common/component';
 import { RegisterProvider } from '../interface/registerProvider';
 import { registerCommand } from '../common/util';
+import { WindowHandlerProvider } from './docHandlerProvider';
 
 
 @component.Export(RegisterProvider)
@@ -19,13 +20,17 @@ export class StatusProvider{
                 this.start();
             }
         });
-        this._statusBar=vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left,100);
+        this._statusBar=vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left,20);
         this._statusBar.command='codeStory.controlButton';
 
         component.getContext().subscriptions.push(this._statusBar);        
         this._status=1;
 
         this.start();
+    }
+
+    public async unregister(){
+        //pass
     }
 
     get status(){
@@ -36,14 +41,27 @@ export class StatusProvider{
         this._status=s;
     }
 
-    public start(){
+    public start(status?:number){
+        if(status!==undefined){
+            this._status=status;
+        }
         switch (this._status){
             case 1: {
-                this._statusBar.text= 'code-story: $(primitive-dot) start recording';
+                this._statusBar.text= 'code-story :  $(primitive-dot)  start recording';
+                component.get(WindowHandlerProvider).register();
                 break;
             }
             case 0: {
-                this._statusBar.text= 'code-story: $(primitive-square) stop recording';
+                this._statusBar.text= 'code-story :  $(triangle-right)  stop recording';
+                component.get(WindowHandlerProvider).unregister();
+                break;
+            }
+            case 2: {
+                this._statusBar.text+=' uploading...';
+                break;
+            }
+            case 3: {
+                this._statusBar.text+= ' downloading...';
                 break;
             }
         }

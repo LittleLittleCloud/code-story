@@ -7,4 +7,5 @@ import {injectable} from "inversify";
 @injectable()
 export abstract class RegisterProvider{
     public abstract register(): void | Promise<void>;
+    public abstract unregister(): void | Promise<void>;
 }
