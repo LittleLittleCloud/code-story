@@ -18,7 +18,10 @@ export class DataHandler {
     private _flushEveryEntry = 1;
     private _db: sqlite.Database;
     public async register() {
-        let extensionPath = component.getContext().extensionPath;
+        let extensionPath = path.join(process.env.HOMEDRIVE,process.env.HOMEPATH,'.code-story');
+        if(!fs.existsSync(extensionPath)){
+            fs.mkdirSync(extensionPath);
+        }
         EDBUG(extensionPath);
         if (!fs.existsSync(path.join(extensionPath, 'record'))) {
             fs.mkdirSync(path.join(extensionPath, 'record'));
@@ -38,7 +41,7 @@ export class DataHandler {
         });
         registerCommand('codeStory.sync',async()=>{
             this.sync();
-        })
+        });
     }
 
     public async unregister() {

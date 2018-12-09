@@ -3,9 +3,7 @@ import { RegisterProvider } from '../interface/registerProvider';
 import * as google from 'googleapis';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
-import * as readline from 'readline';
 import * as path from 'path';
-import { StatusProvider } from './statusProvider';
 import { EDBUG } from '../common/util';
 import { GoogleAuth, OAuth2Client, Credentials } from 'google-auth-library';
 
@@ -16,7 +14,11 @@ export class GoogleDriveProvider {
     private TOKEN_PATH;
     private CREDENTIALS_PATH;
     public async register() {
-        this.TOKEN_PATH = path.join(component.getContext().extensionPath, 'token.json');
+        const googleDriveHome = path.join(process.env.HOMEDRIVE,process.env.HOMEPATH,'.code-story','google-drive');
+        if(!fs.existsSync(googleDriveHome)){
+            fs.mkdirSync(googleDriveHome);
+        }
+        this.TOKEN_PATH = path.join(googleDriveHome, 'token.json');
         this.CREDENTIALS_PATH = path.join(component.getContext().extensionPath, 'client_id.json');
     }
 
@@ -88,7 +90,7 @@ export class GoogleDriveProvider {
                     EDBUG(err.message);
                     return;
                 }
-                res.data
+                (<any>res.data)
                 .on('error',(error)=>{
                     vscode.window.showErrorMessage(error.message);
                 })

@@ -9,7 +9,7 @@ export interface IDataFormat {
 export enum METHOD {
     ADD = 'ADD',
     DEL = 'DEL'
-};
+}
 
 export enum TYPE {
     PY = 'py',

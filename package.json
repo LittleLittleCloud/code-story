@@ -2,7 +2,7 @@
     "name": "code-story",
     "displayName": "code story",
     "description": "show statistic about your coding",
-    "version": "0.9.0",
+    "version": "0.9.5",
     "publisher": "BigMiao",
     "icon": "icons/cat.png",
     "repository": {
@@ -28,16 +28,6 @@
     "main": "./out/extension",
     "contributes": {
         "commands": [
-            {
-                "command": "codeStory.signIn",
-                "title": "Sign In",
-                "category": "code-story"
-            },
-            {
-                "command": "codeStory.signOut",
-                "title": "Sign out",
-                "category": "code-story"
-            },
             {
                 "command": "codeStory.upload",
                 "title": "Upload",
@@ -90,7 +80,7 @@
         "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.25",
         "tslint": "^5.8.0",
-        "typescript": "^2.6.1",
+        "typescript": "^3.1.1",
         "vscode": "^1.1.21"
     },
     "dependencies": {
