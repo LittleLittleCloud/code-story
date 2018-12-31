@@ -66,12 +66,6 @@ export class DataHandler {
     get db() {
         return this._db;
     }
-    public encode(): string {
-        throw Error('unimplement');
-    }
-    public decode(data: fs.ReadStream): fs.WriteStream {
-        throw Error('unimplement');
-    }
     public async upload(): Promise<void> {
         const platform = <string>vscode.workspace.getConfiguration('codeStory').get('syncPlatform');
         if (platform === 'GoogleDrive') {
@@ -147,7 +141,7 @@ export class DataHandler {
                     this._data_buffer = [];
                 },
                 (error) => {
-                    console.log(error);
+                    vscode.window.showErrorMessage(error);
                     this._data_buffer = this._data_buffer.slice(error.message, -1);
                 });
         }
