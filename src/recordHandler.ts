@@ -4,6 +4,7 @@ import { registerCommand, EDBUG, ppIDataFormat } from './common/util';
 import { DataHandler } from './dataHandler';
 import * as sqlite from 'sqlite3';
 import * as vscode from 'vscode';
+import { IRequestParam, sendRequest } from './common/webRequest';
 @component.Export(RegisterProvider)
 @component.Singleton
 export class RecordHandler{
@@ -11,6 +12,9 @@ export class RecordHandler{
     public async register(){
         registerCommand('codeStory.showReport',async () =>{
             await this.showReport();
+        });
+        registerCommand('codeStory.showReportHTML', async () =>{
+            await this.showHTMLReport();
         });
         this._dataHandler = component.get(DataHandler);
     }
@@ -46,5 +50,28 @@ export class RecordHandler{
                 vscode.window.showInformationMessage(`you write ${sum.res} lines of ${langId}`);
             }
         });
+    }
+
+    public async showHTMLReport(){
+        const param: IRequestParam ={
+            endpoint:'localhost',
+            method:'GET',
+            port:23333,
+            path:'/'
+        };
+        try{
+            const html: string = await sendRequest(param);
+            const panel = vscode.window.createWebviewPanel(
+                'Report',
+                'Report',
+                vscode.ViewColumn.One,
+                {
+                    enableScripts:true
+                }
+            );
+            panel.webview.html = html;
+        } catch(e){
+            await vscode.window.showErrorMessage(e);
+        }
     }
 }

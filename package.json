@@ -49,6 +49,11 @@
                 "category": "code-story"
             },
             {
+                "command": "codeStory.showReportHTML",
+                "title": "Show Report HTML",
+                "category": "code-story"
+            },
+            {
                 "command": "codeStory.controlButton",
                 "title": "contorl Buttion",
                 "category": "code-story"
