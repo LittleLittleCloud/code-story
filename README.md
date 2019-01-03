@@ -26,6 +26,8 @@ Open the Command Palette (Command+Shift+P on macOS and Ctrl+Shift+P on Windows/L
 
 - **code-story: Sync**: a combination of **code-story: Download and Merge** and **code-story: Upload**, authorization may be required.
 
+- *(preview)* **code-story: Show Report HTML**: show a general report in a new web panel.
+
 You can turn on the recording process by clicking the **code-story :  stop recording** at status bar or turn on the process by clicking it again
 
 
