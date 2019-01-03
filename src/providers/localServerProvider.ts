@@ -4,7 +4,7 @@ import { RegisterProvider } from '../interface/registerProvider';
 import * as vscode from 'vscode';
 import * as portfinder from 'portfinder';
 
-var app = require('./../../server/app');
+var app = require('./../../server/app').app;
 
 @component.Export(RegisterProvider)
 export class LocalServerProvider {

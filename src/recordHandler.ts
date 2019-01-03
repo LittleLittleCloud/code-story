@@ -57,7 +57,7 @@ export class RecordHandler{
             endpoint:'localhost',
             method:'GET',
             port:23333,
-            path:'/'
+            path:'/report/basicReport'
         };
         try{
             const html: string = await sendRequest(param);
