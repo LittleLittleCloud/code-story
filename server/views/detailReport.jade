@@ -1,0 +1,36 @@
+extends layout
+
+block content
+
+    h1 #{title}
+
+    form(method = 'POST' action = '')
+        div.form-group
+            label(for='start') Start Date:
+            input#name.form-control(type='date' name='start' value=(undefined===report ? '': report.start) )
+            label(for='end') End Date:
+            input#name.form-control(type='date' name='end' value=(undefined===report ? '': report.end) )
+        button.btn.btn-primary(type='submit') generate report
+    
+    if errors
+        ul  
+            for error in errors
+                li!= error.msg
+    else
+        if report
+            h2 In the past #{report.gap} days
+            h2 You write #{report.line} lines of Code
+            div(id="pie") 
+                pie-chart(:data="chartData")
+            script.
+                piechart = !{report.piechart}
+                console.log(piechart)
+                var app = new Vue({
+                    el: "#pie",
+                    data: {
+                        chartData: piechart
+                    }
+                })
+                console.log(app)
+
+            

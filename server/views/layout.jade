@@ -3,5 +3,9 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(http-equiv="Content-Security-Policy" content="default-src 'none'; script-src https:; style-src 'unsafe-inline';")
+    script(src='https://unpkg.com/vue')
+    script(src='https://unpkg.com/chart.js@2.7.2/dist/Chart.bundle.js')
+    script(src='https://unpkg.com/vue-chartkick@0.5.0')
   body
     block content

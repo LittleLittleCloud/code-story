@@ -16,6 +16,9 @@ export class RecordHandler{
         registerCommand('codeStory.showReportHTML', async () =>{
             await this.showHTMLReport();
         });
+        registerCommand('codeStory.showDetailReport', async () =>{
+            await this.showDetailedReport();
+        });
         this._dataHandler = component.get(DataHandler);
     }
 
@@ -67,6 +70,29 @@ export class RecordHandler{
                 vscode.ViewColumn.One,
                 {
                     enableScripts:true
+                }
+            );
+            panel.webview.html = html;
+        } catch(e){
+            await vscode.window.showErrorMessage(e);
+        }
+    }
+
+    public async showDetailedReport(){
+        const param: IRequestParam ={
+            endpoint:'localhost',
+            method:'GET',
+            port:23333,
+            path:'/report/detailReport'
+        };
+        try{
+            const html: string = await sendRequest(param);
+            const panel = vscode.window.createWebviewPanel(
+                'Report',
+                'Report',
+                vscode.ViewColumn.One,
+                {
+                    enableScripts:true,
                 }
             );
             panel.webview.html = html;
