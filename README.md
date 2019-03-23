@@ -2,17 +2,17 @@
 
 ## What is Code Story
 
-Code Story is an extension specially written for VSCode. By using this extension, you can easily trace your code statistic, like how many lines of code you have written in the last week, or which programming language do you write most in the last month, etc... Moreover, you can save the data on the cloud so as to sync it and never loss it!
+Code Story is an extension specially written for VSCode. By using this extension, you can easily trace your code statistic, like how many lines of code you have written in the last week, or which programming language do you write most in the last month, etc... Moreover, you can save the data on the cloud so as to sync it and never lose it!
 
-(kindly remind that due to this extension hasn't been finished yet, some of its functions hasen't been implement yet. Please wait and see)
+(kindly remind that due to this extension hasn't been finished yet, some of its functions hasn't been implement yet. Please wait and see)
 
 ## About the privacy
 
-We don't save any bit of your code information. Basically your data will be save on local machine
+We don't save any bit of your code information. Basically your data will be saved on local machine.
 
 ## About authorization
 
-In the latest version, code-story uses **google drive api** to do synchronize, so give code-story access to google api is required if you want to use **code-story: Upload**, **code-story: Download and Merge**  and **code-story: Sync**. To authorize code-story, simply copy the link from prompt and paste that to browser, then you will get a secret token, copy that to the input box and click enter to finish authorization. 
+In the latest version, code-story uses **google drive api** to do synchronize, so give code-story access to google api is required if you want to use **code-story: Upload**, **code-story: Download and Merge**  and **code-story: Sync**. To authorize code-story, simply copy the link from prompt and paste that to a browser, then you will get a secret token, copy that to the input box and click enter to finish authorization. 
 
 ## Useful commands
 
