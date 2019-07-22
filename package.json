@@ -4,7 +4,7 @@
     "description": "show statistic about your coding",
     "version": "0.9.5",
     "publisher": "BigMiao",
-    "icon": "icons/cat.png",
+    "icon": "icons/cat.jpg",
     "repository": {
         "url": "https://github.com/LittleLittleCloud/code-story.git"
     },
@@ -85,8 +85,10 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
+        "electron-rebuild": "electron-rebuild",
         "test": "copy /y src/test/testFile/test node_modules/vscode/bin && npm run compile && node ./node_modules/vscode/bin/test",
-        "yield": "vsce package --yarn"
+        "yield": "vsce package --yarn",
+        "install-vsix": "code --install-extension code-story-0.9.5.vsix"
     },
     "resolutions": {
         "**/event-stream": "^4.0.1"
@@ -96,11 +98,14 @@
         "@types/node": "^8.10.25",
         "tslint": "^5.8.0",
         "typescript": "^3.1.1",
-        "vscode": "^1.1.21"
+        "vscode": "^1.1.21",
+        "electron":"3.1.8",
+        "vsce": "^1.65.0"
     },
     "dependencies": {
         "@types/express": "^4.16.0",
         "@types/sqlite3": "^3.1.3",
+        "electron-rebuild": "^1.8.5",
         "express": "^4.16.4",
         "express-generator": "^4.16.0",
         "googleapis": "^35.0.0",
@@ -108,7 +113,6 @@
         "portfinder": "^1.0.20",
         "reflect-metadata": "^0.1.12",
         "sqlite3": "^4.0.4",
-        "typemoq": "^2.1.0",
-        "vsce": "^1.65.0"
+        "typemoq": "^2.1.0"
     }
 }
