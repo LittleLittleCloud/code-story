@@ -55,7 +55,12 @@
             },
             {
                 "command": "codeStory.controlButton",
-                "title": "contorl Buttion",
+                "title": "control Button",
+                "category": "code-story"
+            },
+            {
+                "command": "codeStory.totalSum",
+                "title": "total sum of written code",
                 "category": "code-story"
             }
         ],

@@ -9,6 +9,7 @@ import { RecordHandler } from './recordHandler';
 import { DataHandler } from './dataHandler';
 import { GoogleDriveProvider } from './providers/googleDriveProvider';
 import { EDBUG } from './common/util';
+import { TotalSumProvider } from './providers/totalSumProvider';
 // import { LocalServerProvider } from './providers/localServerProvider';
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -21,6 +22,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     component.get(DataHandler).register();
     component.get(RecordHandler).register();
     component.get(GoogleDriveProvider).register();
+    component.get(TotalSumProvider).register();
     // component.get(LocalServerProvider).register();
 }
 
