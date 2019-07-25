@@ -4,4 +4,5 @@ import './recordHandler';
 import './providers/statusProvider';
 import './providers/googleDriveProvider';
 import './providers/totalSumProvider';
+import './providers/sumPerDayProvider';
 // import './providers/localServerProvider';

@@ -2,7 +2,7 @@
     "name": "code-story",
     "displayName": "code story",
     "description": "show statistic about your coding",
-    "version": "0.9.5",
+    "version": "0.9.9",
     "publisher": "BigMiao",
     "icon": "icons/cat.jpg",
     "repository": {
@@ -62,6 +62,11 @@
                 "command": "codeStory.totalSum",
                 "title": "total sum of written code",
                 "category": "code-story"
+            },
+            {
+                "command": "codeStory.sumPerDay",
+                "title": "sum of written code in the past N days",
+                "category": "code-story"
             }
         ],
         "configuration": [
@@ -103,9 +108,9 @@
         "@types/node": "^8.10.25",
         "tslint": "^5.8.0",
         "typescript": "^3.1.1",
-        "vscode": "^1.1.21",
         "electron":"3.1.8",
-        "vsce": "^1.65.0"
+        "vsce": "^1.65.0",
+        "vscode": "^1.1.21"
     },
     "dependencies": {
         "@types/express": "^4.16.0",
