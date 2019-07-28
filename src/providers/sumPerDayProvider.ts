@@ -104,10 +104,12 @@ export class SumPerDayProvider {
     }
   </script>
 </head>
+<details>    
 <summary><span stype="color:grey">Sum of code write in past few days</summary>
 <body>
   <div id="${chart_id}"></div>
 </body>
+</details>
 </html>`;
     return html;
   }
