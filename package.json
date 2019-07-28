@@ -67,6 +67,11 @@
                 "command": "codeStory.sumPerDay",
                 "title": "sum of written code in the past N days",
                 "category": "code-story"
+            },
+            {
+                "command": "codeStory.langPieChart",
+                "title": "sum of different programmming language in the past N days",
+                "category": "code-story"
             }
         ],
         "configuration": [
