@@ -19,7 +19,9 @@ In the latest version, code-story uses **google drive api** to do synchronize, s
 Open the Command Palette (Command+Shift+P on macOS and Ctrl+Shift+P on Windows/Linux) and type in one of the following commands:
 
 - **code-story: Show report**:  Show the line # of codes you have written.
-
+- **code-story: total sum of written code**: Show the line # of codes you written in the past `N` days with a well-designed UI where `N` is the number user puts in.
+- **code-story: sum of written code in the past N days**: Show the histgram of # of codes written in the past `N` days where `N` is the number user puts in.
+- **code-story: sum of different programmming language in the past N days**: Show a pie chart of the # of different languages written in the past `N` days where `N` is the number user puts in.
 - **code-story: Upload**: Upload your local record to google drive, authorization may be required. If just want to synchronize the code record, use **code-story: Sync**
 
 - **code-story: Download and Merge**: Download the remote record and merge (update) the record with local one. authorization may be required.
@@ -39,13 +41,20 @@ Add basic support for recording total # lines of code
 
 Support synchronize through google drive
 
+### 0.9.9
+Add some new commands
+- `code-story: total sum of written code`, 
+- `code-story: sum of written code in the past N days`,
+- `code-story: sum of different programmming language in the past N days`
+
+
 
 
 
 ### Next Step
 
-- more fancy style of report in **Show report** 
-- add support for customizing your report
+- Add metaReport to allow you generate your own-style report using only one command
+- Improve the explanation and command name so as to make them easier to understood
 
 ## About author
 
