@@ -5,6 +5,9 @@ import { DataHandler } from './dataHandler';
 import * as sqlite from 'sqlite3';
 import * as vscode from 'vscode';
 import { IRequestParam, sendRequest } from './common/webRequest';
+
+// TODO
+// should be moved into provider
 @component.Export(RegisterProvider)
 @component.Singleton
 export class RecordHandler{

@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as component from './component';
 import { IDataFormat } from '../dataFormat';
-let _EDEBUG = 0;
+let _EDEBUG = 1;
 export function EDBUG(x: string ) {
     if (_EDEBUG === 1) {
         vscode.window.showInformationMessage(x);
