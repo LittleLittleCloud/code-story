@@ -53,8 +53,8 @@ Add some new commands
 
 ### Next Step
 
-- Add metaReport to allow you generate your own-style report using only one command
-- Improve the explanation and command name so as to make them easier to understood
+- Add metaReport to allow you generate your own-style report using only one command.
+- Improve the explanation and command name so as to make them easier to understood.
 
 ## About author
 
