@@ -123,7 +123,7 @@
         "electron-rebuild": "^1.8.5",
         "express": "^4.16.4",
         "express-generator": "^4.16.0",
-        "googleapis": "^35.0.0",
+        "googleapis": "^59.0.0",
         "inversify": "^5.0.1",
         "portfinder": "^1.0.20",
         "reflect-metadata": "^0.1.12",
